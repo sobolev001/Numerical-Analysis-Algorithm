@@ -1,21 +1,16 @@
-function y=Hermite_Interpolation(x,f,df)
-n=length(x);%count the numbers
-x_h=zeros(1,2*n);% initialized numbers set
-H_Tab=zeros(2*n,2*n);%initialized divided difference table
-for s=1:n;
-    x_h(2*s-1)=x(s);x_h(2*s)=x(s);%evalue the numbers set
-    H_Tab(2*s,1)=f(s);H_Tab(2*s-1,1)=f(s);%evalue the first column of the table
-    %evalue the second column of the table
-    H_Tab(2*s,2)=df(s);
-    if (2*s-1)~=1;
-        H_Tab(2*s-1,2)=(H_Tab(2*s-1,1)-H_Tab(2*s-2,1))/(x_h(2*s-1)-x_h(2*s-2));
-    end
-end
-%evalue the rest of column of the table
-for k=3:2*n;
-    for m=k:2*n;
-        H_Tab(m,k)=(H_Tab(m,k-1)-H_Tab(m-1,k-1))/(x_h(m)-x_h(m-k+1));
-    end
-end
-y=diag(H_Tab);
+function [P,T]=Hermite_Interpolation(x,y,y_prim)
+if ~isequal(size(x),size(y))
+    error(message('MATLAB:Newton_Interpolation:XYSizeMismatch'))
+end %输入验证
+x=x(:);y=y(:);m=y_prim; %统一列向量化
+n=length(x);%计算节点个数
+P=zeros(n-1,4);%初始化hermite多项式
+Der_x=diff(x);
+for j=1:n-1;
+%计算hermite插值多项式
+a1=conv(([0,1]+2/Der_x(j)*[1,-x(j)]),conv([1,-x(j+1)],[1,-x(j+1)])/Der_x(j)^2);
+a2=conv(([0,1]-2/Der_x(j)*[1,-x(j+1)]),conv([1,-x(j)],[1,-x(j)])/Der_x(j)^2);
+b1=conv([1,-x(j)],conv([1,-x(j+1)],[1,-x(j+1)])/Der_x(j)^2);
+b2=conv([1,-x(j+1)],conv([1,-x(j)],[1,-x(j)])/Der_x(j)^2);
+P(j,:)=a1*y(j)+a2*y(j+1)+b1*m(j)+b2*m(j+1);
 end
