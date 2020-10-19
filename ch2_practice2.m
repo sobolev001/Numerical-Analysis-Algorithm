@@ -1,0 +1,9 @@
+clear;
+clc;
+num=20;
+x=linspace(-1,1,num);
+f=1./(1+25*x.^2);
+p=polyfit(x,f,num-1);
+ps=csape(x,f,'second');
+xi=-1:0.01:1;
+plot(x,f,'o',xi,polyval(p,xi),xi,fnval(ps,xi))
