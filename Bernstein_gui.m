@@ -20,7 +20,7 @@ Hsb = uicontrol(gcf, 'Style', 'slider', ...
 Hs = uicontrol(gcf, 'Style', 'text',...
     'units' , 'normalized',...
     'Position', [0 0.045 0.4 0.03],...
-    'string','Ê¹ÓÃBernstein¶àÏîÊ½±Æ½ü','FontSize',14);
+    'string','ä½¿ç”¨Bernsteinå¤šé¡¹å¼é€¼è¿‘','FontSize',14);
 x=0:0.01:1;
 y1=sin(pi*x./2);
 n=1;
@@ -28,9 +28,9 @@ y=Bernstein(n,x);
 h1 = plot(x,y1,'b*');
 h2 = plot(x,y,'y-','LineWidth', 2);
 set(h1,'LineStyle','*');
-str = sprintf('%2d´ÎBernstein±Æ½ü', n);
+str = sprintf('%2dæ¬¡Bernsteiné€¼è¿‘', n);
 title(str, 'FontSize', 18);
-legend('sin(\pi x/2)','Bernstein¶àÏîÊ½')
+legend('sin(\pi x/2)','Bernsteinå¤šé¡¹å¼')
 function y=Bernstein(n,x)
 m=length(x);
 y=zeros(1,m);
@@ -50,7 +50,7 @@ n = round(n);
 set(src, 'value', n);
 str = sprintf('n=%d', n);
 set(Hsbt, 'string', str);
-s=sprintf('Ê¹ÓÃ%2d´ÎBernstein¶àÏîÊ½±Æ½ü',n);
+s=sprintf('ä½¿ç”¨%2dæ¬¡Bernsteinå¤šé¡¹å¼é€¼è¿‘',n);
 set(Hs,'string',s);
 x=0:0.01:1;
 y1=sin(pi*x./2);
@@ -59,9 +59,6 @@ y=Bernstein(n,x);
 h1 = plot(x,y1,'b*');
 h2 = plot(x,y,'y-','LineWidth', 2);
 h3 = plot(x,y2,'y--','LineWidth', 2);
-str = sprintf('%2d´ÎBernstein±Æ½ü', n);
+str = sprintf('%2dæ¬¡Bernsteiné€¼è¿‘', n);
 title(str, 'FontSize', 18);
 hold off
-
-
-
